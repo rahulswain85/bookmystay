@@ -4,17 +4,17 @@
     <div class="row">
         <div class="col-8 offset-2">
         <h3>Edit <%= currListing._id %></h3>
-        <form method="post" action="/listings/<%= currListing._id %>?_method=PUT">
+        <form method="post" class="needs-validation" novalidate action="/listings/<%= currListing._id %>?_method=PUT">
 
         <div>
             <label for="title" class="form-label">Title</label>
-            <input name="listing[title]" value="<%=currListing.title%>" class="form-control"/>
+            <input name="listing[title]" value="<%=currListing.title%>" class="form-control" required/>
         </div>
         
 
         <div>
             <label for="description" class="form-label">Description</label>
-            <textarea name="listing[description]" class="form-control"><%=currListing.description%></textarea>
+            <textarea name="listing[description]" required class="form-control"><%=currListing.description%></textarea>
         </div>
 
 
@@ -22,13 +22,13 @@
 
         <div>
             <label for="image" class="form-label">Image-URL</label>
-            <input name="listing[image]" value="<%=currListing.image%>" class="form-control"/>
+            <input name="listing[image]" required value="<%=currListing.image%>" class="form-control"/>
         </div>
         
 
         <div>
             <label for="price" class="form-label">Price</label>
-            <input name="listing[price]" value="<%=currListing.price%>" class="form-control""/>
+            <input name="listing[price]" required value="<%=currListing.price%>" class="form-control""/>
         </div>
 
 
@@ -36,13 +36,13 @@
 
         <div>
             <label for="location" class="form-label">Location</label>
-            <input name="listing[location]" value="<%=currListing.location%>" class="form-control""/>
+            <input name="listing[location]" required value="<%=currListing.location%>" class="form-control""/>
         </div>
         
 
         <div>
             <label for="country" class="form-label">Country</label>
-            <input name="listing[country]" value="<%=currListing.country%>" class="form-control""/>
+            <input name="listing[country]" required value="<%=currListing.country%>" class="form-control""/>
         </div>
         <br>
         
