@@ -122,3 +122,47 @@ body{
 #del{
     background-color: black !important;
 }
+
+.ratings-form{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background-color: rgba(247, 247, 205, 0.2);
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ratings{
+    display: flex;
+    background-color: rgba(247, 247, 205, 0.2);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+}
+
+.del-btn{
+    transform: scale(0.75);
+    background-color: brown !important; ;
+}
+.card-style{
+    background-color: rgba(230, 156, 138, 0.2);
+    padding: 1rem;
+}
+
+.ratings h2{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.ratings-form textarea{
+    width: 100%;
+    border-radius: 1rem;
+    resize: none;
+}
+
