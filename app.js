@@ -15,6 +15,11 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
 
 
+require("dotenv").config();
+
+
+
+
 
 main().then(()=>{console.log("connected to db")}).catch(err=>{console.log(err)});
 
@@ -29,9 +34,7 @@ const port = 3000;
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/", (req, res)=>{
-    res.send("working!");
-});
+app.get("/", (req, res)=>{ res.send("working!"); });
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsmate);
@@ -57,12 +60,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.failure = req.flash("failure");
     res.locals.currUser = req.user
     next();
-})
+});
 
 
 app.use("/", userRoute);
@@ -75,10 +78,9 @@ app.use((req, res, next) => {
     next(new ExpressErrors(404, "Page Not Found! Error 404"));
 });
 
-
 app.use((err, req, res, next)=>{
     let {statusCode=500, message="Something went wrong!"} = err;
     res.render("./errors/error.ejs", {statusCode, message});
 });
 
-app.listen(port, (req, res)=>{console.log(`listening to port 3000`)});
+app.listen(port, (req, res)=>{ console.log(`listening to port 3000`) });

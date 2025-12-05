@@ -6,7 +6,7 @@
 
 
     <div class="card mb-3">
-        <img src="<%= listing.image %>" class="card-img-top show-image" alt="...">
+        <img src="<%= listing.image.url %>" class="card-img-top show-image" alt="...">
         <div class="card-body">
             <p class="card-text"><strong>Owned By: </strong><i><%= listing.owner.username %></i></p>
             <h5 class="card-title"><%= listing.title %></h5>
@@ -34,9 +34,27 @@
     <div class="ratings-form">
         <form method="post" action="/listings/<%= listing._id %>/reviews" class="needs-validation" novalidate>
         <h4>Post a review</h4>
-        <label for="rating" class="form-label">Rating</label>
+        
+
+<fieldset class="starability-coinFlip">
+  <legend>Rating:</legend>
+  <input type="radio" id="no-rate" class="input-no-rate" name="ratings" value="0" checked aria-label="No rating." />
+  <input type="radio" id="second-rate1" name="ratings" value="1" />
+  <label for="second-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="second-rate2" name="ratings" value="2" />
+  <label for="second-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="second-rate3" name="ratings" value="3" />
+  <label for="second-rate3" title="Average">3 stars</label>
+  <input type="radio" id="second-rate4" name="ratings" value="4" />
+  <label for="second-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="second-rate5" name="ratings" value="5" />
+  <label for="second-rate5" title="Amazing">5 stars</label>
+</fieldset>
+<br>
+
+        <!-- <label for="rating" class="form-label">Rating</label>
         <input type="range" min="1" max="5" value="1" class="form-range" id="range4" name="ratings"/>
-        <output for="range4" id="rangeValue" aria-hidden="true"></output><br><br>
+        <output for="range4" id="rangeValue" aria-hidden="true"></output><br><br> -->
         <textarea placeholder="Write a review........" cols="100" rows="5" class="form-control " name="comment" required></textarea>
         <div class="invalid-feedback">Please write a short review</div>
         <br>
@@ -50,7 +68,9 @@
                 <div class="card card-style col-6" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">@<%= review.author.username %></h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><b>Ratings: </b><%= review.ratings %> ⭐</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary"><p class="starability-result" data-rating="<%= review.ratings %>">
+    Rated: <%= review.ratings %> stars
+  </p></h6>
                     <p class="card-text"><i><%= review.comment %></i></p>
                     
                         <% if(currUser && currUser._id.equals(review.author._id) ) { %>

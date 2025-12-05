@@ -3,6 +3,8 @@ const Rating = require("./models/ratings.js");
 const ExpressErrors = require("./utils/ExpressErrors.js");
 const { listingSchema } = require("./schema.js");
 const { ratingSchema } = require("./schema.js");
+const multer = require("multer")
+
 module.exports.isLoggedIn = (req, res, next) => {
   
   
@@ -70,3 +72,15 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 
   next();
 };
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/temp");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+module.exports.upload = multer({ storage });
