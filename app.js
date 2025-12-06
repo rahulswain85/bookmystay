@@ -2,20 +2,23 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
-const mongo_url = "mongodb://127.0.0.1:27017/wanderlust";
 const ejsmate = require("ejs-mate");
 const ExpressErrors = require("./utils/ExpressErrors.js");
 const listingRoute = require("./routes/listingRoute.js");
 const reviewRoute = require("./routes/reviewRoute.js");
 const userRoute = require("./routes/userRoute.js");
 const session = require("express-session");
+const {MongoStore} = require("connect-mongo");
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
+const { log } = require("console");
 
 
 require("dotenv").config();
+
+const mongo_url = process.env.MONGO_URI;
 
 
 
@@ -34,12 +37,25 @@ const port = 3000;
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/", (req, res)=>{ res.send("working!"); });
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsmate);
 
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_URI,
+  crypto: {
+      secret: "mysupersecretcode",
+    },
+    touchAfter: 24 * 3600
+});
+
+store.on("error", () => {
+    console.log("ERROR in MONGO SESSION STORE!", err);
+    
+})
+
 const sessionOptions = {
+    store: store,
     secret: "mysupersecretcode",
     resave: false,
     saveUninitialized: true,
@@ -49,6 +65,8 @@ const sessionOptions = {
         httpOnly: true,
     },
 }
+
+
 
 app.use(session(sessionOptions));
 app.use(flash());

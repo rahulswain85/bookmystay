@@ -146,7 +146,7 @@ body{
 
 .del-btn{
     transform: scale(0.75);
-    background-color: brown !important; ;
+    background-color: rgb(165, 42, 42) !important; ;
 }
 .card-style{
     background-color: rgba(230, 156, 138, 0.2);
@@ -166,3 +166,57 @@ body{
     resize: none;
 }
 
+/* Center the card */
+.map-container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 100vh;   /* full screen center */
+    background: #f7f7fb;
+}
+
+/* Stylish card */
+.map-card {
+    margin: auto;
+    margin-bottom: 50px;
+    
+    background: #fdfff4;
+    border-radius: 25px;
+    border: 6px solid rgba(255, 255, 255, 0.7); /* lighter whitish border */
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Map image */
+.map-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Info section */
+.map-info {
+    padding: 15px;
+}
+
+.map-info h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+}
+
+.map-info p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+#my-map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 400;
+}

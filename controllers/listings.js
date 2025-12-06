@@ -1,7 +1,8 @@
 const Listing = require("../models/listing.js");
 const ExpressErrors = require("../utils/ExpressErrors.js");
-const {uploadOnCloudinary} = require("../cloudConfig.js")
-
+const { uploadOnCloudinary } = require("../cloudConfig.js");
+const { geocode, getGeoUrl } = require("../map.js");
+require("dotenv").config();
 
 module.exports.index = async (req, res)=>{
     const allListing = await Listing.find({});
@@ -18,11 +19,17 @@ module.exports.showListing = async (req, res) => {
   let listing = await Listing.findById(id)
     .populate({ path: "reviews", populate: { path: "author" } })
     .populate("owner");
+  
+  let mapLocation = await geocode(listing.location);
+  console.log(mapLocation);
+  let url = `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=250&height=250&center=lonlat:${mapLocation.lon},${mapLocation.lat}&zoom=15.9318&&marker=lonlat:${mapLocation.lon},${mapLocation.lat};type:awesome;color:%23ff5722;size:x-large;icon:material;icontype:awesome&apiKey=${process.env.GEOAPIFY_API}`;
   if (!listing) {
     req.flash("failure", "Listing not found");
     res.redirect("/listings");
   } else {
-    res.render("./listings/show.ejs", { listing });
+    console.log(url);
+    console.log(mapLocation);
+    res.render("./listings/show.ejs", { listing, mapLocation, url });
   }
 };
 
