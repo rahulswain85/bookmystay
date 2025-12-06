@@ -44,9 +44,9 @@ app.engine("ejs", ejsmate);
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URI,
   crypto: {
-      secret: "mysupersecretcode",
-    },
-    touchAfter: 24 * 3600
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
 });
 
 store.on("error", () => {
@@ -55,16 +55,16 @@ store.on("error", () => {
 })
 
 const sessionOptions = {
-    store: store,
-    secret: "mysupersecretcode",
-    resave: false,
-    saveUninitialized: true,
-    cookie:{
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge : 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-    },
-}
+  store: store,
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 
 
 
